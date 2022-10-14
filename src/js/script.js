@@ -53,6 +53,10 @@
   };
 
   const app = {
+    initMenu: function(){
+      const testProduct = new Product();
+      console.log('test product', testProduct);
+    },
     init: function(){
       const thisApp = this;
       console.log('*** App starting ***');
@@ -60,8 +64,28 @@
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
+
+      thisApp.initMenu();
     },
   };
 
+  // Naszą pierwszą klasą (schematem) będzie Product. 
+  // Każdy produkt w menu naszej pizzerii będzie instancją tej klasy. 
+  // Będzie ona odpowiedzialna za:
+
+  // dodanie produktu do menu na stronie, wykorzystując szablon Handlebars,
+  // uruchomienie akordeonu, czyli funkcjonalności pokazywanie i ukrywanie opcji produktu,
+  // obliczanie ceny produktu z wybranymi opcjami.
+
+  class Product {
+    constructor (){
+      const thisProduct = this;
+
+      console.log('new product:', thisProduct);
+    }
+  }
+
+  
   app.init();
 }
+
