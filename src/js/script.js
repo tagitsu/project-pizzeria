@@ -53,9 +53,19 @@
   };
 
   const app = {
+    
     initMenu: function(){
-      const testProduct = new Product();
-      console.log('test product', testProduct);
+      const thisApp = this;
+      
+      console.log('thisApp.data', thisApp.data);
+      for(let productData in thisApp.data.products) {
+        new Product(productData, thisApp.data.products[productData]);
+      }
+    },
+    initData: function() {
+      const thisApp = this;
+
+      thisApp.data = dataSource;
     },
     init: function(){
       const thisApp = this;
@@ -65,6 +75,7 @@
       console.log('settings:', settings);
       console.log('templates:', templates);
 
+      thisApp.initData();
       thisApp.initMenu();
     },
   };
@@ -78,10 +89,27 @@
   // obliczanie ceny produktu z wybranymi opcjami.
 
   class Product {
-    constructor (){
+    constructor(id, data){
       const thisProduct = this;
 
+      thisProduct.id = id;
+      thisProduct.data = data;
+
+      thisProduct.renderInMenu();
+
       console.log('new product:', thisProduct);
+    }
+    
+    renderInMenu() {
+        const thisProduct = this;
+        // wygenerować kod HTML pojedynczego produktu,
+        const generatedHTML = templates.menuProduct(thisProduct.data);
+        // stworzyć element DOM na podstawie tego kodu produktu,
+        thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+        // znaleźć na stronie kontener menu,
+        const menuContainer = document.querySelector(select.containerOf.menu);
+        // wstawić stworzony element DOM do znalezionego kontenera menu.
+        menuContainer.appendChild(thisProduct.element);
     }
   }
 
