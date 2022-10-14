@@ -70,11 +70,6 @@
 
     init: function(){
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();
@@ -98,8 +93,6 @@
 
       thisProduct.renderInMenu();
       thisProduct.initAccordion();
-
-      console.log('new product:', thisProduct);
     }
     
     renderInMenu() {
@@ -117,31 +110,28 @@
     initAccordion() {
       const thisProduct = this;
       /* find the clickable trigger (the element that should react to clicking) */
-      const clickableTriggers = document.querySelectorAll(select.menuProduct.clickable);
-      console.log('to sa znalezione triggery:', clickableTriggers);
-      for(let clickableTrigger of clickableTriggers) {
-        /* START: add event listener to clickable trigger on event click */
-        clickableTrigger.addEventListener('click', function(event) {
-          /* prevent default action for event */
-          event.defaultPrevented;
-          /* find active product (product that has active class) */
-          const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
-          console.log('to sa znalezione aktywne produkty:', activeProducts);
-          /* if there is active product and it's not thisProduct.element, remove class active from it */
-          //for(let activeProduct in activeProducts) {
-          for(let activeProduct in activeProducts) {
-            if(thisProduct !== activeProduct) {
-              
-            } 
-          }
-          /* toggle active class on thisProduct.element */
-          thisProduct.element.classList.toggle('active'); 
-        });
+      const articles = document.querySelectorAll(select.all.menuProducts);
+      let clickableTrigger = '';
+      for(let article of articles) {
+        clickableTrigger = article.querySelector(select.menuProduct.clickable);
       }
-      
-       
-    }
-  }
 
+      /* START: add event listener to clickable trigger on event click */
+      clickableTrigger.addEventListener('click', function(event) {
+        /* prevent default action for event */
+        event.defaultPrevented;
+
+        /* find active product (product that has active class) */
+        const activeProduct = document.querySelector(select.all.menuProductsActive);
+
+        /* if there is active product and it's not thisProduct.element, remove class active from it */
+        if(activeProduct && activeProduct !== thisProduct) {
+          activeProduct.classList.remove('active');
+        }
+        /* toggle active class on thisProduct.element */
+        thisProduct.element.classList.toggle('active'); 
+      });
+    }
+  }   
   app.init();
-}
+}  
