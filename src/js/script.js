@@ -140,6 +140,15 @@
         }
       });
     }
+
+    initOrderForm() {
+      const thisProduct = this;
+      
+    }
+
+    processOrder() {
+      const thisProduct = this;
+    }
   }   
   app.init();
 }  
