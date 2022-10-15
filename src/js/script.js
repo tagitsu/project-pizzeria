@@ -165,8 +165,44 @@
 
     processOrder() {
       const thisProduct = this;
+    
+      // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('to jest zmienna formData', formData);
+      console.log('formData', formData);
+    
+      // set price to default price
+      let price = thisProduct.data.price;
+    
+      // for every category (param)...
+      for(let paramId in thisProduct.data.params) {
+        // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
+        const param = thisProduct.data.params[paramId];
+        console.log(paramId, param);
+    
+        // for every option in this category
+        for(let optionId in param.options) {
+          // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
+          const option = param.options[optionId];
+          console.log(optionId, option);
+
+          // Wewnątrz tej drugiej pętli będziemy musieli zastosować logikę, o której wspomnieliśmy na początku tego submodułu, czyli:
+          let defaultOption = '';
+          let selectedOption = '';
+          let notSelectedoption = '';
+          // jeśli jest zaznaczona opcja, która nie jest domyślna, cena produktu musi się zwiększyć o cenę tej opcji,
+          if(defaultOption !== selectedOption) {cena zwieksza się o cenę selectedOption
+          // jeśli nie jest zaznaczona opcja, która jest domyślna, cena produktu musi się zmniejszyć o cenę tej opcji.
+          } else if(defaultOption == notSelectedOption) {cena zmniejsza się
+          // Pozostaje jeszcze pytanie: jak zweryfikować, czy dana opcja jest zaznaczona? Wystarczy, że sprawdzimy:
+          } else 
+          // czy obiekt formData zawiera właściwość o kluczu takim, jak klucz parametru (powinien, ale lepiej się upewnić), oraz
+          // czy w tablicy zapisanej pod tym kluczem znajduje się klucz opcji (wspomniana wcześniej metoda (includes)).
+          if(formData.includes(keyParam) == keyParam && keyParam[param])
+        }
+      }
+    
+      // update calculated price in the HTML
+      thisProduct.priceElem.innerHTML = price;
     }
   }   
   app.init();
