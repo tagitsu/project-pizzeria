@@ -94,6 +94,8 @@
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
     }
     
     renderInMenu() {
@@ -144,11 +146,35 @@
     initOrderForm() {
       const thisProduct = this;
       
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+      
+      for(let input of thisProduct.formInputs){
+        input.addEventListener('change', function(){
+          thisProduct.processOrder();
+        });
+      }
+      
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
     }
 
     processOrder() {
       const thisProduct = this;
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('to jest zmienna formData', formData);
     }
   }   
   app.init();
 }  
+
+//Przechodzimy po wszystkich opcjach produktu (thisProduct.data.params) i sprawdzamy każdą z nich. 
+//Mamy bezpośrednią informację o domyślności (właściwość default) czy cenie (właściwość price). 
+//Formularz wykorzystujemy tylko po to, aby ustalić, czy dana opcja była zaznaczona. 
+//Tak, aby ustalić, co mamy zrobić z ceną. Zwiększyć ją? Zmniejszyć? A może nie ruszać?
+//Chcesz wiedzieć, czy wybrano olives? Wystarczy sprawdzić, czy ten obiekt zawiera w toppings element olives.
+// if(obj.toppings.includes('olives')) { console.log('Wybrano!'); }
