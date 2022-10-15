@@ -92,6 +92,7 @@
       thisProduct.data = data;
 
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
     }
     
@@ -120,14 +121,10 @@
     initAccordion() {
       const thisProduct = this;
       /* find the clickable trigger (the element that should react to clicking) */
-      const articles = document.querySelectorAll(select.all.menuProducts);
-      let clickableTrigger = '';
-      for(let article of articles) {
-        clickableTrigger = article.querySelector(select.menuProduct.clickable);
-      }
+     
 
       /* START: add event listener to clickable trigger on event click */
-      clickableTrigger.addEventListener('click', function(event) {
+      thisProduct.accordionTrigger.addEventListener('click', function(event) {
         /* prevent default action for event */
         event.defaultPrevented;
 
