@@ -184,7 +184,7 @@
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
           console.log('to jest optionId i obj option', optionId, option);
-
+          
           //Zacznij od ustalenia, czy w formData istnieje właściwość o nazwie zgodnej z nazwą kategorii, 
           if(formData[paramId] && formData[paramId].includes(optionId)) {
             //a jeśli tak, to czy zawiera ona nazwę sprawdzanej opcji. 
@@ -193,17 +193,19 @@
             if(option.default == true) {
               console.log('TAK opcja jest wybrana i TAK jest domyślna - BRAK zmiany ceny');
             } else {
-              console.log('NIE opcja nie jest wybrana i TAK jest domyślna - ZMIEJSZENIE zmiany ceny');
+              console.log('TAK opcja jest wybrana i NIE jest domyślna - ZWIĘKSZENIE ceny');
+              price += option.price;
+              console.log('cena produktu',price);
+
             }
-          } else {
-             if(option.default == false) {
-                console.log('TAK opcja jest wybrana i NIE jest domyślna - ZWIĘKSZENIE ceny');
-                console.log(option.price);
-                //thisProduct.priceElem += option.price;
-              } else if(categorySelected == !optionId && option.default == true) {
-                console.log('NIE opcja nie jest wybrana, ale TAK jest domyślna - ZMNIEJSZENIE ceny');
-                //thisProduct.priceElem -= option.price;
-              } 
+          } else if(formData[paramId] && !(formData[paramId].includes(optionId))) { 
+            if(option.default == true) {
+              console.log('NIE opcja nie jest wybrana i TAK jest domyślna - ZMNIEJSZENIE  ceny');
+              price -= option.price;
+              console.log('cena produktu',price);
+            } else {
+              console.log('NIE opcja nie jest wybrana i NIE jest domyślna - BARK zmianyceny');
+            } 
           }
         } 
       }     
