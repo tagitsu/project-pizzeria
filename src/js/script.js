@@ -168,6 +168,7 @@
       for(let paramId in thisProduct.data.params) {
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
+        console.log('to jest param', param);
     
         // for every option in this category
         for(let optionId in param.options) {
@@ -183,23 +184,24 @@
           }
 
           // images
-          const imageClass = '.' + paramId + '-' + optionId;
-          console.log('klasa obrazka', imageClass);
-          console.log(dataSource.products.includes(pizza));
+          const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          console.log('zawartość image', image);
+          image.classList.remove(classNames.menuProduct.imageVisible);
 
+           if(formData[paramId] && formData[paramId].includes(optionId) && image == true) {
+             console.log('opcja zaznaczona');
+             console.log('img ma klasę active');
+             image.classList.add(classNames.menuProduct.imageVisible);
+             // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
+           } else if(formData[paramId] && !(formData[paramId].includes(optionId)) && image == true) { 
+             console.log('opcja nie zaznaczona');
+             console.log('img nie ma klasy active jesli posiada jakąkolwiek inną klasę');
+             image.classList.remove(classNames.menuProduct.imageVisible);
+           } 
           
 
-          // selected option 
-          if(formData[paramId] && formData[paramId].includes(optionId)) {
-            console.log('opcja zaznaczona');
-            const image = thisProduct.imageWrapper.querySelector(imageClass);
-            image.classList.add(classNames.menuProduct.imageVisible);
-            
-          // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
-          } else if(formData[paramId] && !(formData[paramId].includes(optionId))) { 
-            console.log('opcja nie zaznaczona');
-            image.classList.remove(classNames.menuProduct.imageVisible);
-          }
+            // selected option 
+          
           
         } 
       }     
