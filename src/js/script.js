@@ -110,6 +110,8 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      console.log('thisProduct.imageWrapper:', thisProduct.imageWrapper);
     }
 
     initAccordion() {
@@ -158,7 +160,7 @@
     
       // convert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-    
+      console.log('zawartość formData', formData);
       // set price to default price
       let price = thisProduct.data.price;
     
@@ -179,6 +181,26 @@
           } else if(formData[paramId] && !(formData[paramId].includes(optionId)) && option.default == true) { 
             price -= option.price;
           }
+
+          // images
+          const imageClass = '.' + paramId + '-' + optionId;
+          console.log('klasa obrazka', imageClass);
+          console.log(dataSource.products.includes(pizza));
+
+          
+
+          // selected option 
+          if(formData[paramId] && formData[paramId].includes(optionId)) {
+            console.log('opcja zaznaczona');
+            const image = thisProduct.imageWrapper.querySelector(imageClass);
+            image.classList.add(classNames.menuProduct.imageVisible);
+            
+          // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
+          } else if(formData[paramId] && !(formData[paramId].includes(optionId))) { 
+            console.log('opcja nie zaznaczona');
+            image.classList.remove(classNames.menuProduct.imageVisible);
+          }
+          
         } 
       }     
       // update calculated price in the HTML
