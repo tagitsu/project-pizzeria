@@ -185,34 +185,20 @@
           const option = param.options[optionId];
           console.log('to jest optionId i obj option', optionId, option);
           
-          //Zacznij od ustalenia, czy w formData istnieje właściwość o nazwie zgodnej z nazwą kategorii, 
-          if(formData[paramId] && formData[paramId].includes(optionId)) {
-            //a jeśli tak, to czy zawiera ona nazwę sprawdzanej opcji. 
-            
-            //Jeśli zawiera, to będzie to oznaczać, że opcja jest wybrana.
-            if(option.default == true) {
-              console.log('TAK opcja jest wybrana i TAK jest domyślna - BRAK zmiany ceny');
-            } else {
-              console.log('TAK opcja jest wybrana i NIE jest domyślna - ZWIĘKSZENIE ceny');
-              price += option.price;
-              console.log('cena produktu',price);
-
-            }
-          } else if(formData[paramId] && !(formData[paramId].includes(optionId))) { 
-            if(option.default == true) {
-              console.log('NIE opcja nie jest wybrana i TAK jest domyślna - ZMNIEJSZENIE  ceny');
-              price -= option.price;
-              console.log('cena produktu',price);
-            } else {
-              console.log('NIE opcja nie jest wybrana i NIE jest domyślna - BARK zmianyceny');
-            } 
+          // is there in formData property that name is equal to paramID AND is it contain name of selected option. 
+          if(formData[paramId] && formData[paramId].includes(optionId) && !(option.default) == true) {
+            console.log('TAK opcja jest wybrana i NIE jest domyślna - ZWIĘKSZENIE ceny');
+            price += option.price;
+          } else if(formData[paramId] && !(formData[paramId].includes(optionId)) && option.default == true) { 
+            console.log('NIE opcja nie jest wybrana i TAK jest domyślna - ZMNIEJSZENIE  ceny');
+            price -= option.price;
+            console.log('cena produktu',price);
           }
         } 
       }     
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
- 
   }   
   app.init();
 }
