@@ -177,40 +177,40 @@
       for(let paramId in thisProduct.data.params) {
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log(paramId, param);
+        console.log('to jest param', paramId, param);
     
         // for every option in this category
         for(let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
-          console.log(optionId, option);
+          console.log('to jest optionId i obj option', optionId, option);
 
-          // Wewnątrz tej drugiej pętli będziemy musieli zastosować logikę, o której wspomnieliśmy na początku tego submodułu, czyli:
-          let defaultOption = '';
-          let selectedOption = '';
-          let notSelectedoption = '';
-          // jeśli jest zaznaczona opcja, która nie jest domyślna, cena produktu musi się zwiększyć o cenę tej opcji,
-          if(defaultOption !== selectedOption) {cena zwieksza się o cenę selectedOption
-          // jeśli nie jest zaznaczona opcja, która jest domyślna, cena produktu musi się zmniejszyć o cenę tej opcji.
-          } else if(defaultOption == notSelectedOption) {cena zmniejsza się
-          // Pozostaje jeszcze pytanie: jak zweryfikować, czy dana opcja jest zaznaczona? Wystarczy, że sprawdzimy:
-          } else 
-          // czy obiekt formData zawiera właściwość o kluczu takim, jak klucz parametru (powinien, ale lepiej się upewnić), oraz
-          // czy w tablicy zapisanej pod tym kluczem znajduje się klucz opcji (wspomniana wcześniej metoda (includes)).
-          if(formData.includes(keyParam) == keyParam && keyParam[param])
-        }
-      }
-    
+          //Zacznij od ustalenia, czy w formData istnieje właściwość o nazwie zgodnej z nazwą kategorii, 
+          if(formData[paramId] && formData[paramId].includes(optionId)) {
+            //a jeśli tak, to czy zawiera ona nazwę sprawdzanej opcji. 
+            
+            //Jeśli zawiera, to będzie to oznaczać, że opcja jest wybrana.
+            if(option.default == true) {
+              console.log('TAK opcja jest wybrana i TAK jest domyślna - BRAK zmiany ceny');
+            } else {
+              console.log('NIE opcja nie jest wybrana i TAK jest domyślna - ZMIEJSZENIE zmiany ceny');
+            }
+          } else {
+             if(option.default == false) {
+                console.log('TAK opcja jest wybrana i NIE jest domyślna - ZWIĘKSZENIE ceny');
+                console.log(option.price);
+                //thisProduct.priceElem += option.price;
+              } else if(categorySelected == !optionId && option.default == true) {
+                console.log('NIE opcja nie jest wybrana, ale TAK jest domyślna - ZMNIEJSZENIE ceny');
+                //thisProduct.priceElem -= option.price;
+              } 
+          }
+        } 
+      }     
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
+ 
   }   
   app.init();
-}  
-
-//Przechodzimy po wszystkich opcjach produktu (thisProduct.data.params) i sprawdzamy każdą z nich. 
-//Mamy bezpośrednią informację o domyślności (właściwość default) czy cenie (właściwość price). 
-//Formularz wykorzystujemy tylko po to, aby ustalić, czy dana opcja była zaznaczona. 
-//Tak, aby ustalić, co mamy zrobić z ceną. Zwiększyć ją? Zmniejszyć? A może nie ruszać?
-//Chcesz wiedzieć, czy wybrano olives? Wystarczy sprawdzić, czy ten obiekt zawiera w toppings element olives.
-// if(obj.toppings.includes('olives')) { console.log('Wybrano!'); }
+}
