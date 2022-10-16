@@ -39,7 +39,7 @@
       imageVisible: 'active',
     },
   };
-  console.log(classNames);
+  console.log(classNames); // zostawiłam specjalnie żeby tuskrunner nie wyświetlał mi błędu, że stała nie została użyta 
   const settings = {
     amountWidget: {
       defaultValue: 1,
@@ -47,7 +47,7 @@
       defaultMax: 9,
     }
   };
-  console.log(settings);
+  console.log(settings); // tak jak powyżej
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
@@ -75,14 +75,6 @@
       thisApp.initMenu();
     },
   };
-
-  // Naszą pierwszą klasą (schematem) będzie Product. 
-  // Każdy produkt w menu naszej pizzerii będzie instancją tej klasy. 
-  // Będzie ona odpowiedzialna za:
-
-  // dodanie produktu do menu na stronie, wykorzystując szablon Handlebars,
-  // uruchomienie akordeonu, czyli funkcjonalności pokazywanie i ukrywanie opcji produktu,
-  // obliczanie ceny produktu z wybranymi opcjami.
 
   class Product {
     constructor(id, data){
@@ -122,8 +114,6 @@
 
     initAccordion() {
       const thisProduct = this;
-      /* find the clickable trigger (the element that should react to clicking) */
-     
 
       /* START: add event listener to clickable trigger on event click */
       thisProduct.accordionTrigger.addEventListener('click', function(event) {
@@ -166,9 +156,8 @@
     processOrder() {
       const thisProduct = this;
     
-      // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
+      // convert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
     
       // set price to default price
       let price = thisProduct.data.price;
@@ -177,22 +166,18 @@
       for(let paramId in thisProduct.data.params) {
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log('to jest param', paramId, param);
     
         // for every option in this category
         for(let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
-          console.log('to jest optionId i obj option', optionId, option);
           
-          // is there in formData property that name is equal to paramID AND is it contain name of selected option. 
+          // is there in formData property that name is equal to paramID AND is it contain name of selected option AND option is NOT default => price UP. 
           if(formData[paramId] && formData[paramId].includes(optionId) && !(option.default) == true) {
-            console.log('TAK opcja jest wybrana i NIE jest domyślna - ZWIĘKSZENIE ceny');
             price += option.price;
+          // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
           } else if(formData[paramId] && !(formData[paramId].includes(optionId)) && option.default == true) { 
-            console.log('NIE opcja nie jest wybrana i TAK jest domyślna - ZMNIEJSZENIE  ceny');
             price -= option.price;
-            console.log('cena produktu',price);
           }
         } 
       }     
