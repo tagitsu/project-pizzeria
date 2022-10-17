@@ -187,12 +187,12 @@
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
           console.log('zawartość image', image);
 
-           if (formData[paramId] && formData[paramId].includes(optionId) && image == true) {
+           if (formData[paramId] && formData[paramId].includes(optionId) && image !== null) {
              console.log('opcja zaznaczona');
              console.log('img ma klasę active');
              image.classList.add(classNames.menuProduct.imageVisible);
              // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
-           } else if (formData[paramId] && !(formData[paramId].includes(optionId)) && image == true) { 
+           } else if (formData[paramId] && !(formData[paramId].includes(optionId)) && image !== null) { 
              console.log('opcja nie zaznaczona');
              console.log('img nie ma klasy active jesli posiada jakąkolwiek inną klasę');
              image.classList.remove(classNames.menuProduct.imageVisible);
