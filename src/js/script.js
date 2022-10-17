@@ -186,7 +186,6 @@
           // images
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
           console.log('zawartość image', image);
-          image.classList.remove(classNames.menuProduct.imageVisible);
 
            if(formData[paramId] && formData[paramId].includes(optionId) && image == true) {
              console.log('opcja zaznaczona');
