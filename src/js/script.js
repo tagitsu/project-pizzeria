@@ -57,7 +57,7 @@
     initMenu: function(){
       const thisApp = this;
       
-      for(let productData in thisApp.data.products) {
+      for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
       }
     },
@@ -126,7 +126,7 @@
         const activeProduct = document.querySelector(select.all.menuProductsActive);
 
         /* if there is active product and it's not thisProduct.element, remove class active from it */
-        if(activeProduct && activeProduct !== thisProduct) {
+        if (activeProduct && activeProduct !== thisProduct) {
           activeProduct.classList.remove('active');
         } else {
           /* toggle active class on thisProduct.element */
@@ -143,7 +143,7 @@
         thisProduct.processOrder();
       });
       
-      for(let input of thisProduct.formInputs){
+      for (let input of thisProduct.formInputs){
         input.addEventListener('change', function(){
           thisProduct.processOrder();
         });
@@ -165,21 +165,21 @@
       let price = thisProduct.data.price;
     
       // for every category (param)...
-      for(let paramId in thisProduct.data.params) {
+      for (let paramId in thisProduct.data.params) {
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
         console.log('to jest param', param);
     
         // for every option in this category
-        for(let optionId in param.options) {
+        for (let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
           
           // is there in formData property that name is equal to paramID AND is it contain name of selected option AND option is NOT default => price UP. 
-          if(formData[paramId] && formData[paramId].includes(optionId) && !(option.default) == true) {
+          if (formData[paramId] && formData[paramId].includes(optionId) && !(option.default) === true) {
             price += option.price;
           // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
-          } else if(formData[paramId] && !(formData[paramId].includes(optionId)) && option.default == true) { 
+          } else if (formData[paramId] && !(formData[paramId].includes(optionId)) && option.default) { 
             price -= option.price;
           }
 
@@ -187,12 +187,12 @@
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
           console.log('zawartość image', image);
 
-           if(formData[paramId] && formData[paramId].includes(optionId) && image == true) {
+           if (formData[paramId] && formData[paramId].includes(optionId) && image == true) {
              console.log('opcja zaznaczona');
              console.log('img ma klasę active');
              image.classList.add(classNames.menuProduct.imageVisible);
              // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
-           } else if(formData[paramId] && !(formData[paramId].includes(optionId)) && image == true) { 
+           } else if (formData[paramId] && !(formData[paramId].includes(optionId)) && image == true) { 
              console.log('opcja nie zaznaczona');
              console.log('img nie ma klasy active jesli posiada jakąkolwiek inną klasę');
              image.classList.remove(classNames.menuProduct.imageVisible);
