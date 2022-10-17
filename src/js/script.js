@@ -39,7 +39,6 @@
       imageVisible: 'active',
     },
   };
-  console.log(classNames); // zostawiłam specjalnie żeby tuskrunner nie wyświetlał mi błędu, że stała nie została użyta 
   const settings = {
     amountWidget: {
       defaultValue: 1,
@@ -47,7 +46,8 @@
       defaultMax: 9,
     }
   };
-  console.log(settings); // tak jak powyżej
+  console.log(settings); // zostawiłam specjalnie żeby tuskrunner nie wyświetlał mi błędu, że stała nie została użyta 
+
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
@@ -111,7 +111,6 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      console.log('thisProduct.imageWrapper:', thisProduct.imageWrapper);
     }
 
     initAccordion() {
@@ -160,7 +159,6 @@
     
       // convert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('zawartość formData', formData);
       // set price to default price
       let price = thisProduct.data.price;
     
@@ -168,40 +166,30 @@
       for (let paramId in thisProduct.data.params) {
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log('to jest param', param);
     
         // for every option in this category
         for (let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           
           // is there in formData property that name is equal to paramID AND is it contain name of selected option AND option is NOT default => price UP. 
-          if (formData[paramId] && formData[paramId].includes(optionId) && !(option.default) === true) {
+          if (optionSelected && !(option.default) === true) {
             price += option.price;
           // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
-          } else if (formData[paramId] && !(formData[paramId].includes(optionId)) && option.default) { 
+          } else if (!optionSelected && option.default) { 
             price -= option.price;
           }
 
           // images
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-          console.log('zawartość image', image);
 
-           if (formData[paramId] && formData[paramId].includes(optionId) && image !== null) {
-             console.log('opcja zaznaczona');
-             console.log('img ma klasę active');
-             image.classList.add(classNames.menuProduct.imageVisible);
-             // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
-           } else if (formData[paramId] && !(formData[paramId].includes(optionId)) && image !== null) { 
-             console.log('opcja nie zaznaczona');
-             console.log('img nie ma klasy active jesli posiada jakąkolwiek inną klasę');
-             image.classList.remove(classNames.menuProduct.imageVisible);
-           } 
-          
-
-            // selected option 
-          
-          
+          if (optionSelected && image !== null) {
+            image.classList.add(classNames.menuProduct.imageVisible);
+            // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
+          } else if (!optionSelected && image !== null) { 
+            image.classList.remove(classNames.menuProduct.imageVisible);
+          } 
         } 
       }     
       // update calculated price in the HTML
