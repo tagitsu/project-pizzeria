@@ -55,14 +55,11 @@
   class AmountWidget {
     constructor(element) {
       const thisWidget = this;
-      console.log('thisWidget', thisWidget);
-      console.log('to klasa AmountWidget', AmountWidget);
-      console.log('a to argument jej konstruktora', element);
 
       thisWidget.getElements(element);
       // będzie on oczekiwać na jeden element – referencję do diva z inputem i buttonami
       thisWidget.initActions();
-      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.setValue(settings.amountWidget.defaultValue);
     }
 
     getElements(element) {
