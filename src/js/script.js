@@ -52,6 +52,21 @@
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
+
+  class AmountWidget {
+    constructor(element) {
+      const thisWidget = this;
+      console.log('thisWidget', thisWidget);
+      console.log('to klasa AmountWidget', AmountWidget);
+      console.log('a to argument jej konstruktora', element);
+      // będzie on oczekiwać na jeden element – referencję do diva z inputem i buttonami
+    }
+
+    getElements(element) {
+      
+    }
+  }
+
   const app = {
     
     initMenu: function(){
@@ -87,6 +102,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     }
     
@@ -111,6 +127,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
 
     initAccordion() {
@@ -152,6 +169,13 @@
         event.preventDefault();
         thisProduct.processOrder();
       });
+    }
+
+    initAmountWidget() {
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+
     }
 
     processOrder() {
