@@ -95,8 +95,6 @@
       thisWidget.input = element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = element.querySelector(select.widgets.amount.linkIncrease);
-
-      console.log('to jest amount widget', this);
     }
 
     setValue(value) {
@@ -147,10 +145,7 @@
       thisCart.products = [];
 
       thisCart.getElements(element);
-      thisCart.initActions(event);
-
-      console.log('koszyk', thisCart);
-
+      thisCart.initActions();
     }
 
     getElements(element) {
@@ -160,8 +155,6 @@
 
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
-
-      console.log('to elementy dom koszyka', this.dom);
     }
 
     initActions() {
@@ -206,7 +199,7 @@
   };
 
   class Product {
-    constructor(id, data){
+    constructor(id, data) {
       const thisProduct = this;
 
       thisProduct.id = id;
@@ -232,7 +225,7 @@
       menuContainer.appendChild(thisProduct.element);
     }
 
-    getElements(){
+    getElements() {
       const thisProduct = this;
       
       thisProduct.dom = {};
@@ -244,8 +237,6 @@
       thisProduct.dom.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.dom.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.dom.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
-
-      console.log('obiekt this', this);
     }
 
     initAccordion() {
