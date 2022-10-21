@@ -59,11 +59,18 @@
       console.log('thisWidget', thisWidget);
       console.log('to klasa AmountWidget', AmountWidget);
       console.log('a to argument jej konstruktora', element);
+
+      thisWidget.getElements(element);
       // będzie on oczekiwać na jeden element – referencję do diva z inputem i buttonami
     }
 
     getElements(element) {
-      
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = element.querySelector(select.widgets.amount.linkIncrease);
     }
   }
 
