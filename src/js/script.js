@@ -46,7 +46,6 @@
       defaultMax: 9,
     }
   };
-  console.log(settings); // zostawiłam specjalnie żeby tuskrunner nie wyświetlał mi błędu, że stała nie została użyta 
 
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
@@ -62,6 +61,8 @@
 
       thisWidget.getElements(element);
       // będzie on oczekiwać na jeden element – referencję do diva z inputem i buttonami
+      thisWidget.initActions();
+      thisWidget.setValue(thisWidget.input.value);
     }
 
     getElements(element) {
@@ -71,6 +72,39 @@
       thisWidget.input = element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = element.querySelector(select.widgets.amount.linkIncrease);
+    }
+
+    setValue(value) {
+      const thisWidget = this;
+
+      const newValue = parseInt(value);
+
+      // TODO -  add validation
+
+      thisWidget.input.value = thisWidget.value;
+      //Sprawdzimy, czy wartość, która przychodzi do funkcji, jest inna niż ta, która jest już aktualnie w thisWidget.value. 
+      //Powinien on warunkować, czy linijka thisWidget.value = newValue ma się w ogóle wykonać.
+
+      if (thisWidget.value !== newValue && !(isNaN(newValue)) && newValue >= settings.amountWidget.defaultMin - settings.amountWidget.defaultValue && newValue <= settings.amountWidget.defaultMax + settings.amountWidget.defaultValue) {
+        thisWidget.value = newValue;
+      }
+    }
+
+    initActions() {
+      const thisWidget = this;
+
+      thisWidget.input.addEventListener('change', function() {
+        thisWidget.setValue(thisWidget.input.value);
+      });
+      thisWidget.linkDecrease.addEventListener('click', function(event) {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', function(event) {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value + 1);
+      });
+
     }
   }
 
