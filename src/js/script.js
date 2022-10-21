@@ -80,14 +80,14 @@
       const newValue = parseInt(value);
 
       // TODO -  add validation
-
-      thisWidget.input.value = thisWidget.value;
-      //Sprawdzimy, czy wartość, która przychodzi do funkcji, jest inna niż ta, która jest już aktualnie w thisWidget.value. 
-      //Powinien on warunkować, czy linijka thisWidget.value = newValue ma się w ogóle wykonać.
-
       if (thisWidget.value !== newValue && !(isNaN(newValue)) && newValue >= settings.amountWidget.defaultMin - settings.amountWidget.defaultValue && newValue <= settings.amountWidget.defaultMax + settings.amountWidget.defaultValue) {
         thisWidget.value = newValue;
       }
+
+      thisWidget.input.value = thisWidget.value;
+
+      thisWidget.announce();
+
     }
 
     initActions() {
@@ -105,6 +105,13 @@
         thisWidget.setValue(thisWidget.value + 1);
       });
 
+    }
+
+    announce() {
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
     }
   }
 
@@ -217,6 +224,9 @@
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
 
+      thisProduct.amountWidgetElem.addEventListener('updated', function() {
+        thisProduct.processOrder();
+      });
     }
 
     processOrder() {
@@ -256,9 +266,14 @@
             image.classList.remove(classNames.menuProduct.imageVisible);
           } 
         } 
-      }     
+      } 
+      // multiply price by amount
+      price *= thisProduct.amountWidget.value;
+
+      
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
+
     }
   }   
   app.init();
