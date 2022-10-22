@@ -166,7 +166,12 @@
     }
 
     add(menuProduct) {
-      // const thisCart = this;
+      const thisCart = this;
+
+      const generatedHTML = templates.cartProduct(menuProduct);
+      thisCart.element = utils.createDOMFromHTML(generatedHTML);
+      const cartContainer = document.querySelector(select.containerOf.cart);
+      cartContainer.appendChild(thisCart.element);
 
       console.log('adding product', menuProduct);
     }
@@ -195,7 +200,7 @@
       thisApp.cart = new Cart(cartElem);
     },
 
-    init: function(){
+    init: function() {
       const thisApp = this;
 
       thisApp.initData();
@@ -374,16 +379,13 @@
     prepareCartProduct() {
       const thisProduct = this;
       const productSummary = {};
-      this.prepareCartProductParams();
       productSummary.id = thisProduct.id;
       productSummary.name = thisProduct.data.name;
       productSummary.amount = thisProduct.amountWidget.value;
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = parseInt(thisProduct.dom.priceElem.innerHTML) ;
-      productSummary.params = thisProduct.cartProductParams;
+      productSummary.params = thisProduct.prepareCartProductParams();
       
-      console.log('produkt podsumowanie', productSummary);
-      console.log('co to jest params?', this.cartProductParams);
       return productSummary;
     }
 
