@@ -170,7 +170,6 @@
       });
 
       thisCart.dom.productList.addEventListener('remove', function() {
-        console.log('remove działa');
         thisCart.remove(event.detail.CartProduct);
       });
 
@@ -188,21 +187,15 @@
     }
 
     update() {
-      console.log('update koszyka zaczyna się')
       const thisCart = this;
       let deliveryFee = settings.cart.defaultDeliveryFee;
       let totalNumber = 0;
       let subtotalPrice = 0;
 
-
-
       for(let product of thisCart.products) {
         totalNumber = totalNumber + product.amount.value;
         subtotalPrice = subtotalPrice + product.price * product.amount.value;
-        console.log('totalNumber', totalNumber, 'subtotalPrice', subtotalPrice);
-        console.log('długość tablicy', this.products.length);
       }
-
 
       thisCart.totalPrice = 0;
       if (subtotalPrice > 0) {
@@ -223,22 +216,14 @@
       thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
       
     }
-    // [IN PROGRESS]
+    // [DONE] remove product from cart
     remove(product) {
       const thisCart = this;
-      // parametrem będzie event.detail.CartProduct, czyli parametr product odpowiada właśnie klikniętemu produktowi
-      // Jej zadaniem jest:
 
-      // Usunięcie reprezentacji produktu z HTML-a,
-      // metoda remove()
-      console.log('co to jest product', product);
       product.dom.wrapper.remove();
-      // Usunięcie informacji o danym produkcie z tablicy thisCart.products.
-      // musze znaleźć indeks usuwanego produktu
+
       const removedProductIndex = thisCart.products.indexOf(product);
-      console.log('to indeks usuwanego produktu', thisCart.products.indexOf(product));
       thisCart.products.splice(removedProductIndex, 1);
-      // Wywołać metodę update w celu przeliczenia sum po usunięciu produktu.
 
       thisCart.update();
     }
@@ -294,7 +279,6 @@
           CartProduct: thisCartProduct,
         },
       });
-      console.log('remove w CartProduct działa');
       thisCartProduct.dom.wrapper.dispatchEvent(event);
     }
 
