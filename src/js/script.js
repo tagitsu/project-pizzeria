@@ -105,7 +105,7 @@
       }
 
       thisWidget.input.value = thisWidget.value;
-
+      console.log('wykonuje annouce');
       thisWidget.announce();
     }
 
@@ -127,11 +127,12 @@
 
     announce() {
       const thisWidget = this;
-
+      console.log(thisWidget.element);
       const event = new CustomEvent('updated', {
         bubbles: true
       });
       thisWidget.element.dispatchEvent(event);
+
     }
   }
 
@@ -166,6 +167,7 @@
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
       thisCart.dom.productList.addEventListener('updated', function() {
+        console.log('działa');
         thisCart.update();
       });
     }
@@ -176,7 +178,7 @@
       const generatedHTML = templates.cartProduct(menuProduct);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       const cartContainer = document.querySelector(select.containerOf.cart);
-      cartContainer.appendChild(generatedDOM);
+      thisCart.dom.productList.appendChild(generatedDOM);
 
       thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
       thisCart.update();
@@ -184,14 +186,14 @@
 
     update() {
       const thisCart = this;
-
+      console.log(thisCart);
       const deliveryFee = settings.cart.defaultDeliveryFee;
       let totalNumber = 0;
       let subtotalPrice = 0;
 
       for(let product of thisCart.products) {
         totalNumber = totalNumber + product.amount.value;
-        subtotalPrice = subtotalPrice + product.price;
+        subtotalPrice = subtotalPrice + product.price * product.amount.value;
       }
 
       thisCart.totalPrice = 0;
@@ -201,7 +203,9 @@
         for (let sum of thisCart.dom.totalPrice) {
           sum.innerHTML = thisCart.totalPrice;
         }
+        
       } 
+      console.log('subtolaPrice', subtotalPrice);
       thisCart.dom.totalNumber.innerHTML = totalNumber;
       thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
       
@@ -457,7 +461,6 @@
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = parseInt(thisProduct.dom.priceElem.innerHTML) ;
       productSummary.params = thisProduct.prepareCartProductParams();
-      
       return productSummary;
     }
 
