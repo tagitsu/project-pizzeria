@@ -177,12 +177,16 @@
 
     add(menuProduct) {
       const thisCart = this;
-
       const generatedHTML = templates.cartProduct(menuProduct);
+    
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
+      console.log('czym jest menuProdukt argument przekazywany przy dodawaniu produktu', menuProduct); // ok ilość taka jak w formularzu
+      console.log('generatedHTML', generatedHTML); // tworzy wartość podaną w formularzu produktu OK
+      console.log('generatedDOM', generatedDOM); // jak wyżej OK
 
-      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM)); // podane są prawidłowe dane a w tablicy błąd, szukam w konstruktorze 
+
       thisCart.update();
     }
 
@@ -191,10 +195,14 @@
       let deliveryFee = settings.cart.defaultDeliveryFee;
       let totalNumber = 0;
       let subtotalPrice = 0;
-
+      console.log('to jest tablica this.products', this.products); // w tablicy jest wartość 1 stale (BŁAD!!)
       for(let product of thisCart.products) {
         totalNumber = totalNumber + product.amount.value;
         subtotalPrice = subtotalPrice + product.price * product.amount.value;
+        console.log('to jest product czyli instancja CartProduct', product);
+        // [ERROR] 1. błąd jest w product.amount.value, zawsze wskazuje 1
+        // product to obiekt CartProduct
+        // 2. sprawdzam tworzenie instancji
       }
 
       thisCart.totalPrice = 0;
@@ -236,6 +244,8 @@
       thisCartProduct.id = menuProduct.id;
       thisCartProduct.name = menuProduct.name;
       thisCartProduct.amount = menuProduct.amount;
+      console.log('thisCartProduct.amount', this.amount, 'porównuję z menuProduct amount', menuProduct.amount);
+      // wartości takie jak podane w form produktu OK
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.params = menuProduct.params;
@@ -252,6 +262,7 @@
 
       thisCartProduct.dom.wrapper = element;
       thisCartProduct.dom.amount = element.querySelector(select.cartProduct.amountWidget);
+      console.log('to jest dom amoun cartProduct', thisCartProduct.dom.amount); // ok
       thisCartProduct.dom.price = element.querySelector(select.cartProduct.price);
       thisCartProduct.dom.edit = element.querySelector(select.cartProduct.edit);
       thisCartProduct.dom.remove = element.querySelector(select.cartProduct.remove);
@@ -261,6 +272,7 @@
       const thisCartProduct = this;
 
       thisCartProduct.amount = new AmountWidget(thisCartProduct.dom.amount);
+      console.log('thisCartProduct amount dom', thisCartProduct.dom.amount); 
 
       thisCartProduct.dom.amount.addEventListener('updated', function() {
         const productAmount = thisCartProduct.amount.value;
@@ -461,13 +473,11 @@
           } 
         } 
       } 
-      
 
       // multiply price by amount
       price *= thisProduct.amountWidget.value;
       // update calculated price in the HTML
       thisProduct.dom.priceElem.innerHTML = price;
-      
     }
 
     prepareCartProductParams() {
@@ -501,6 +511,7 @@
       productSummary.id = thisProduct.id;
       productSummary.name = thisProduct.data.name;
       productSummary.amount = thisProduct.amountWidget.value;
+      console.log('posumowanie ilości', productSummary.amount); //ok
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = parseInt(thisProduct.dom.priceElem.innerHTML) ;
       productSummary.params = thisProduct.prepareCartProductParams();
@@ -510,6 +521,7 @@
     addToCart() {
       const thisProduct = this;
       app.cart.add(thisProduct.prepareCartProduct());
+      console.log('co to jest app.cart', app.cart);
     }
 
   }   
