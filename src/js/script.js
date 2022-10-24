@@ -399,7 +399,8 @@
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
 
           // is there in formData property that name is equal to paramID AND is it contain name of selected option AND option is NOT default => price UP. 
-          if (optionSelected && !(option.default) === true) {
+          // Zadanie 7.6 - poprawione
+          if (optionSelected && option.default === false) {
             price += option.price;
           // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
           } else if (!optionSelected && option.default) { 
