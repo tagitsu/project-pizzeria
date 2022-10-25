@@ -161,6 +161,9 @@
       thisCart.dom.totalNumber = element.querySelector(select.cart.totalNumber);
       thisCart.dom.totalPrice = element.querySelectorAll(select.cart.totalPrice);
       thisCart.dom.productList = element.querySelector(select.cart.productList);
+      thisCart.dom.form = element.querySelector(select.cart.form);
+      thisCart.dom.address = thisCart.dom.form.querySelector(select.cart.address);
+      thisCart.dom.phone = thisCart.dom.form.querySelector(select.cart.phone);
     }
 
     initActions() {
@@ -178,6 +181,11 @@
         thisCart.remove(event.detail.CartProduct);
       });
 
+      thisCart.dom.form.addEventListener('submit', function() {
+        event.preventDefault();
+        thisCart.sendOrder();
+      });
+
     }
 
     add(menuProduct) {
@@ -186,9 +194,6 @@
     
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
-      console.log('czym jest menuProdukt argument przekazywany przy dodawaniu produktu', menuProduct); // ok ilość taka jak w formularzu
-      console.log('generatedHTML', generatedHTML); // tworzy wartość podaną w formularzu produktu OK
-      console.log('generatedDOM', generatedDOM); // jak wyżej OK
 
       thisCart.products.push(new CartProduct(menuProduct, generatedDOM)); // podane są prawidłowe dane a w tablicy błąd, szukam w konstruktorze 
 
@@ -200,14 +205,9 @@
       let deliveryFee = settings.cart.defaultDeliveryFee;
       let totalNumber = 0;
       let subtotalPrice = 0;
-      console.log('to jest tablica this.products', this.products); // w tablicy jest wartość 1 stale (BŁAD!!)
       for(let product of thisCart.products) {
         totalNumber = totalNumber + product.amount;
-        subtotalPrice = subtotalPrice + product.price * product.amount;
-        console.log('to jest product czyli instancja CartProduct', product);
-        // [ERROR] 1. błąd jest w product.amount.value, zawsze wskazuje 1
-        // product to obiekt CartProduct
-        // 2. sprawdzam tworzenie instancji
+        subtotalPrice = subtotalPrice + product.price;
       }
 
       thisCart.totalPrice = 0;
@@ -229,7 +229,7 @@
       thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
       
     }
-    // [DONE] remove product from cart
+
     remove(product) {
       const thisCart = this;
 
@@ -240,6 +240,37 @@
 
       thisCart.update();
     }
+
+    // [IN PROGRESS] create object with cart data to send to server
+    sendOrder() {
+      const thisCart = this;
+
+      const url = settings.db.url + '/' + settings.db.orders;
+
+      const payload = {};
+
+      payload.address = thisCart.dom.address.value;
+      payload.phone = thisCart.dom.phone.value;
+      payload.totalPrice = thisCart.dom.totalPrice[0].innerText;
+      payload.subtotalPrice = thisCart.dom.subtotalPrice.innerText;
+      payload.totalNumber = thisCart.dom.totalNumber.innerText;
+      payload.deliveryFee = thisCart.dom.deliveryFee.innerText;
+      payload.products = [];
+      for(let prod of thisCart.products) {
+        payload.products.push(prod.getData());
+      }
+      console.log('obiekt z danymi zamówienia payload', payload);
+
+      const options = {
+        method: 'DELETE', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      };
+
+      fetch(url, options);
+    }
   }
 
   class CartProduct {
@@ -249,8 +280,6 @@
       thisCartProduct.id = menuProduct.id;
       thisCartProduct.name = menuProduct.name;
       thisCartProduct.amount = menuProduct.amount;
-      console.log('thisCartProduct.amount', this.amount, 'porównuję z menuProduct amount', menuProduct.amount);
-      // wartości takie jak podane w form produktu OK
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.params = menuProduct.params;
@@ -262,12 +291,10 @@
 
     getElements(element) {
       const thisCartProduct = this;
-
       thisCartProduct.dom = {};
 
       thisCartProduct.dom.wrapper = element;
       thisCartProduct.dom.amount = element.querySelector(select.cartProduct.amountWidget);
-      console.log('to jest dom amoun cartProduct', thisCartProduct.dom.amount); // ok
       thisCartProduct.dom.price = element.querySelector(select.cartProduct.price);
       thisCartProduct.dom.edit = element.querySelector(select.cartProduct.edit);
       thisCartProduct.dom.remove = element.querySelector(select.cartProduct.remove);
@@ -277,8 +304,6 @@
       const thisCartProduct = this;
 
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amount);
-      console.log('thisCartProduct amount dom', thisCartProduct.dom.amount); 
-      // w atrybucie value wartość jak w form produktu OK
       thisCartProduct.dom.amount.addEventListener('updated', function() {
         const productAmount = thisCartProduct.amountWidget.value;
         let productPrice = thisCartProduct.price;
@@ -311,6 +336,21 @@
         thisCartProduct.remove();
       });
     }
+
+    getData() {
+      const thisCartProduct = this;
+
+      const orderData = {};
+
+      orderData.id = thisCartProduct.id;
+      orderData.amount = thisCartProduct.amount;  
+      orderData.price = thisCartProduct.price;
+      orderData.priceSingle = thisCartProduct.priceSingle;
+      orderData.name = thisCartProduct.name;
+      orderData.params = thisCartProduct.params;
+
+      return orderData;
+    }
   }
 
   const app = {
@@ -335,16 +375,12 @@
           return rawResponse.json();
         })
         .then(function(parsedResponse) {
-          console.log('parsedResponse', parsedResponse);
-
           // save parsedResponse as thisApp.data.products
           thisApp.data.products = parsedResponse;  
           // execute initMenu method
           thisApp.initMenu();  
 
         });
-
-      console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
 
     initCart: function() {
@@ -534,7 +570,6 @@
       productSummary.id = thisProduct.id;
       productSummary.name = thisProduct.data.name;
       productSummary.amount = thisProduct.amountWidget.value;
-      console.log('posumowanie ilości', productSummary.amount); //ok
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = parseInt(thisProduct.dom.priceElem.innerHTML) ;
       productSummary.params = thisProduct.prepareCartProductParams();
@@ -544,7 +579,6 @@
     addToCart() {
       const thisProduct = this;
       app.cart.add(thisProduct.prepareCartProduct());
-      console.log('co to jest app.cart', app.cart);
     }
 
   }   
