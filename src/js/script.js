@@ -337,12 +337,12 @@
         .then(function(parsedResponse) {
           console.log('parsedResponse', parsedResponse);
 
-        // save parsedResponse as thisApp.data.products
-        thisApp.data.products = parsedResponse;  
-        // execute initMenu method
-        thisApp.initMenu();  
+          // save parsedResponse as thisApp.data.products
+          thisApp.data.products = parsedResponse;  
+          // execute initMenu method
+          thisApp.initMenu();  
 
-      });
+        });
 
       console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
@@ -477,7 +477,7 @@
 
           // is there in formData property that name is equal to paramID AND is it contain name of selected option AND option is NOT default => price UP. 
           // Zadanie 7.6 - poprawione
-          if (optionSelected && option.default === false) {
+          if (optionSelected && !(option.default) === true) {
             price += option.price;
           // is there in formData property that name is equal to paramID AND it is NOT contain name of selected option AND option is default => price DOWN. 
           } else if (!optionSelected && option.default) { 
