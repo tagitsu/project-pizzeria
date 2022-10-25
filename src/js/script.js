@@ -83,7 +83,7 @@
 
       thisWidget.getElements(element);
       thisWidget.initActions();
-      thisWidget.setValue(settings.amountWidget.defaultValue);
+      thisWidget.setValue(thisWidget.input.value || settings.amountWidget.defaultValue);
     }
 
     getElements(element) {
@@ -197,8 +197,8 @@
       let subtotalPrice = 0;
       console.log('to jest tablica this.products', this.products); // w tablicy jest wartość 1 stale (BŁAD!!)
       for(let product of thisCart.products) {
-        totalNumber = totalNumber + product.amount.value;
-        subtotalPrice = subtotalPrice + product.price * product.amount.value;
+        totalNumber = totalNumber + product.amount;
+        subtotalPrice = subtotalPrice + product.price * product.amount;
         console.log('to jest product czyli instancja CartProduct', product);
         // [ERROR] 1. błąd jest w product.amount.value, zawsze wskazuje 1
         // product to obiekt CartProduct
@@ -271,14 +271,15 @@
     initAmountWidget() {
       const thisCartProduct = this;
 
-      thisCartProduct.amount = new AmountWidget(thisCartProduct.dom.amount);
+      thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amount);
       console.log('thisCartProduct amount dom', thisCartProduct.dom.amount); 
-
+      // w atrybucie value wartość jak w form produktu OK
       thisCartProduct.dom.amount.addEventListener('updated', function() {
-        const productAmount = thisCartProduct.amount.value;
+        const productAmount = thisCartProduct.amountWidget.value;
         let productPrice = thisCartProduct.price;
         productPrice *= productAmount;
         thisCartProduct.dom.price.innerHTML = productPrice;
+        thisCartProduct.amount = productAmount;
       });
     }
 
