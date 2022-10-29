@@ -1,6 +1,7 @@
 import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 
 
 const app = {
@@ -93,11 +94,20 @@ const app = {
     });
   },
 
+  initBooking: function() {
+    // get container of booking widget
+    const bookingWidget = document.querySelector(select.containerOf.booking);
+    // add a new instance with a parameter equal to container of booking widget
+    new Booking(bookingWidget);
+    console.log('bookingWidget', bookingWidget);
+  },
+
   init: function() {
     const thisApp = this;
     thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
+    thisApp.initBooking();
   },
 };
 
