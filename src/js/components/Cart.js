@@ -1,3 +1,8 @@
+import {settings, select, classNames, templates} from '../settings.js';
+import CartProduct from './CartProduct.js';
+import utils from '../utils.js';
+
+
 class Cart {
   constructor(element) {
     const thisCart = this;
@@ -54,7 +59,7 @@ class Cart {
     const generatedDOM = utils.createDOMFromHTML(generatedHTML);
     thisCart.dom.productList.appendChild(generatedDOM);
 
-    thisCart.products.push(new CartProduct(menuProduct, generatedDOM)); // podane są prawidłowe dane a w tablicy błąd, szukam w konstruktorze 
+    thisCart.products.push(new CartProduct(menuProduct, generatedDOM)); 
 
     thisCart.update();
   }
@@ -118,7 +123,6 @@ class Cart {
     for(let prod of thisCart.products) {
       payload.products.push(prod.getData());
     }
-    console.log('obiekt z danymi zamówienia payload', payload);
 
     const options = {
       method: 'POST', 

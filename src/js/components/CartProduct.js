@@ -1,3 +1,6 @@
+import {select} from '../settings.js';
+import AmountWidget from './AmountWidget.js';
+
 class CartProduct {
   constructor(menuProduct, element) {
     const thisCartProduct = this;
@@ -31,9 +34,10 @@ class CartProduct {
     thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amount);
     thisCartProduct.dom.amount.addEventListener('updated', function() {
       const productAmount = thisCartProduct.amountWidget.value;
-      let productPrice = thisCartProduct.price;
+      let productPrice = thisCartProduct.priceSingle;
       productPrice *= productAmount;
       thisCartProduct.dom.price.innerHTML = productPrice;
+      thisCartProduct.price = productPrice;
       thisCartProduct.amount = productAmount;
     });
   }
@@ -77,3 +81,5 @@ class CartProduct {
     return orderData;
   }
 }
+
+export default CartProduct;
