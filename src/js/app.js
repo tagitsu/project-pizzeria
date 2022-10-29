@@ -99,7 +99,6 @@ const app = {
     const bookingWidget = document.querySelector(select.containerOf.booking);
     // add a new instance with a parameter equal to container of booking widget
     new Booking(bookingWidget);
-    console.log('bookingWidget', bookingWidget);
   },
 
   init: function() {
