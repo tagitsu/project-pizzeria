@@ -38,9 +38,9 @@ export const select = {
       input: `input[name="date"]`,
     },
     hourPicker: {
-        wrapper: '.hour-picker',
-        input: 'input[type="range"]',
-        output: '.output',
+      wrapper: '.hour-picker',
+      input: 'input[type="range"]',
+      output: '.output',
     },
   },
 
@@ -51,7 +51,7 @@ export const select = {
   },
 
   nav: {
-      links: '.main-nav a',
+    links: '.main-nav a',
   },
 
   cart: {
@@ -88,10 +88,10 @@ export const classNames = {
     tableBooked: 'booked',
   },
   nav: {
-      active: 'active',
+    active: 'active',
   },
   pages: {
-      active: 'active',
+    active: 'active',
   },
 };
 export const settings = {
@@ -107,7 +107,6 @@ export const settings = {
     url: '//localhost:3131',
     products: 'products',
     orders: 'orders',
-    url: '//localhost:3131',
     product: 'product',
     order: 'order',
     booking: 'booking',
