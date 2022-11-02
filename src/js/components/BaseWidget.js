@@ -9,13 +9,11 @@ class BaseWidget {
 
   get value() {
     const thisWidget = this;
-    console.log('getter w akcji')
     return thisWidget.correctValue;
   }
 
   set value(value) {
     const thisWidget = this;
-    console.log('setter w akcji');
     const newValue = thisWidget.parseValue(value);
 
     if (thisWidget.correctValue !== newValue && thisWidget.isValid(newValue)) {
