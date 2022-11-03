@@ -3,6 +3,7 @@ import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
+import Table from './Table.js';
 
 class Booking {
 
@@ -11,47 +12,6 @@ class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
-  }
-
-  render(element) {
-    const thisBooking = this;
-    const generatedHTML = templates.bookingWidget();
-    thisBooking.dom = {};
-    thisBooking.dom.wrapper = element; 
-    thisBooking.dom.wrapper.innerHTML = generatedHTML;
-    thisBooking.dom.peopleAmount = element.querySelector(select.booking.peopleAmount);
-    thisBooking.dom.hoursAmount = element.querySelector(select.booking.hoursAmount);
-    thisBooking.dom.bookingDate = element.querySelector(select.widgets.datePicker.wrapper);
-    thisBooking.dom.bookingHour = element.querySelector(select.widgets.hourPicker.wrapper);
-    thisBooking.dom.tables = element.querySelectorAll(select.booking.tables);
-  }
-
-  initWidgets() {
-    const thisBooking = this;
-
-    thisBooking.amountPeople = new AmountWidget(thisBooking.dom.peopleAmount);
-    thisBooking.dom.peopleAmount.addEventListener('updated', function() {
-
-    });
-
-    thisBooking.amountHours = new AmountWidget(thisBooking.dom.hoursAmount);
-    thisBooking.dom.hoursAmount.addEventListener('updated', function() {
-
-    });
-
-    thisBooking.bookingDate = new DatePicker(thisBooking.dom.bookingDate);
-    thisBooking.dom.bookingDate.addEventListener('update', function() {
-    });
-
-    thisBooking.bookingHour = new HourPicker(thisBooking.dom.bookingHour);
-    thisBooking.dom.bookingHour.addEventListener('update', function() {
-
-    });
-
-    thisBooking.dom.wrapper.addEventListener('updated', function() {
-      thisBooking.updateDOM();
-    })
-
   }
 
   getData() {
@@ -101,7 +61,6 @@ class Booking {
 
   parseData(bookings, eventsCurrent, eventsRepeat) {
     const thisBooking = this;
-    console.log(bookings, eventsRepeat);
     thisBooking.booked = {};
 
     for (let item of eventsCurrent) {
@@ -177,6 +136,77 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
+  }
+
+
+  render(element) {
+    const thisBooking = this;
+    const generatedHTML = templates.bookingWidget();
+    thisBooking.dom = {};
+    thisBooking.dom.wrapper = element; 
+    thisBooking.dom.wrapper.innerHTML = generatedHTML;
+    thisBooking.dom.peopleAmount = element.querySelector(select.booking.peopleAmount);
+    thisBooking.dom.hoursAmount = element.querySelector(select.booking.hoursAmount);
+    thisBooking.dom.bookingDate = element.querySelector(select.widgets.datePicker.wrapper);
+    thisBooking.dom.bookingHour = element.querySelector(select.widgets.hourPicker.wrapper);
+    thisBooking.dom.tables = element.querySelectorAll(select.booking.tables);
+  }
+
+  initWidgets() {
+    const thisBooking = this;
+
+    thisBooking.amountPeople = new AmountWidget(thisBooking.dom.peopleAmount);
+    thisBooking.dom.peopleAmount.addEventListener('updated', function() {
+
+    });
+
+    thisBooking.amountHours = new AmountWidget(thisBooking.dom.hoursAmount);
+    thisBooking.dom.hoursAmount.addEventListener('updated', function() {
+
+    });
+
+    thisBooking.bookingDate = new DatePicker(thisBooking.dom.bookingDate);
+    thisBooking.dom.bookingDate.addEventListener('update', function() {
+    });
+
+    thisBooking.bookingHour = new HourPicker(thisBooking.dom.bookingHour);
+    thisBooking.dom.bookingHour.addEventListener('update', function() {
+
+    });
+
+    thisBooking.dom.wrapper.addEventListener('updated', (event) => {
+      event.preventDefault();
+      const activeElement = event.target;
+
+      if (activeElement) {
+        console.log('aktywny element');
+        for (let table of thisBooking.dom.tables) {
+          if (table.classList.contains('loading')) {
+            console.log('to jest kliknięty stolik aktywny');
+            table.classList.remove(classNames.booking.loading);
+          } 
+        }
+      }
+      
+      thisBooking.updateDOM();
+    });
+
+    thisBooking.dom.wrapper.addEventListener('click', (event) => {
+      event.preventDefault();
+      const clickedElement = event.target;
+      if (
+        clickedElement.classList.contains('table')
+        &&
+        !clickedElement.classList.contains(classNames.booking.tableBooked)
+        ) {
+        console.log('kliknięty został wolny stolik');
+        const tableId = clickedElement.getAttribute(['data-table']);
+          console.log('id stolika', tableId);
+        new Table(tableId, thisBooking.date, thisBooking.hour, thisBooking.amountHours.correctValue, thisBooking.amountPeople.correctValue);
+      } else {
+        console.log('ten jest zarezerwowany lub to zupełnie nie jest stolik');
+      }
+    });
   }
 }
 
