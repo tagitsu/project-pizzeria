@@ -93,8 +93,6 @@ class Booking {
   
       thisBooking.booked[date][hourBlock].push(table);
     }
-
-    
   }
 
   updateDOM() {
@@ -131,7 +129,6 @@ class Booking {
       }
     }
   }
-
 
   render(element) {
     const thisBooking = this;
@@ -266,8 +263,6 @@ class Booking {
 
     fetch(url, options);
   }
-
-
 }
 
 export default Booking;
