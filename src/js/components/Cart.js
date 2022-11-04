@@ -105,7 +105,7 @@ class Cart {
     thisCart.update();
   }
 
-  // [IN PROGRESS] create object with cart data to send to server
+  // create object with cart data to send to server
   sendOrder() {
     const thisCart = this;
 
@@ -123,7 +123,7 @@ class Cart {
     for(let prod of thisCart.products) {
       payload.products.push(prod.getData());
     }
-
+    console.log('zamówione jedzenie', payload);
     const options = {
       method: 'POST', 
       headers: {
