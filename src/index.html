@@ -66,7 +66,7 @@
 
   <div id="pages">
     <section id="home">
-      <div class="home container"></div>
+      <div class="home-wrapper container"></div>
     </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
@@ -77,23 +77,25 @@
   </div>
 
   <script id="template-home" type="text/x-handlebars-template">
-    <section class="home__services">
-      <div class="home__service"></div>
-      <div class="home__service"></div>
-      <div class="home__service home__service--hours"></div>
-    </section>
-    <section class="home__slider"></section>
-    <section class="home__gallery">
-      <div class="home__photo">{{ image }}</div>
-      <div class="home__photo">{{ image }}</div>
-      <div class="home__photo">{{ image }}</div>
-      <div class="home__photo">{{ image }}</div>
-      <div class="home__photo">{{ image }}</div>
-      <div class="home__photo">{{ image }}</div>
-    </section>
-    <footer class="home__footer">
-      <a href="#">View more on Instagram</a>
-    </footer>
+    <div class="home"
+      <section class="home__services">
+        <div class="home__service"></div>
+        <div class="home__service"></div>
+        <div class="home__service home__service--hours"></div>
+      </section>
+      <section class="home__slider"></section>
+      <section class="home__gallery">
+        <div class="home__photo">{{ image }}</div>
+        <div class="home__photo">{{ image }}</div>
+        <div class="home__photo">{{ image }}</div>
+        <div class="home__photo">{{ image }}</div>
+        <div class="home__photo">{{ image }}</div>
+        <div class="home__photo">{{ image }}</div>
+      </section>
+      <footer class="home__footer">
+        <a href="#">View more on Instagram</a>
+      </footer>
+    </div>
   </script>
 
   <script id="template-cart-product" type="text/x-handlebars-template">
