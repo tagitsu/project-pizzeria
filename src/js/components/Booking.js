@@ -26,15 +26,11 @@ class Booking {
       eventsRepeat: [settings.db.repeatParam, endDateParam],
     };
 
-    //console.log('getData params', params);
-    //console.log('booking', this);
-
     const urls = {
       bookings: settings.db.url + '/' + settings.db.bookings + '?' + params.booking.join('&'),
       eventsCurrent: settings.db.url + '/' + settings.db.events + '?' + params.eventsCurrent.join('&'),
       eventsRepeat: settings.db.url + '/' + settings.db.events + '?' + params.eventsRepeat.join('&'),
     };
-    //console.log('urls', urls);
 
     Promise.all([
       fetch(urls.bookings),
@@ -53,9 +49,6 @@ class Booking {
         ]);
       })
       .then(function([bookings, eventsCurrent, eventsRepeat]) {
-        // console.log(bookings);
-        // console.log(eventsCurrent);
-        // console.log(eventsRepeat);
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
   }
@@ -81,7 +74,6 @@ class Booking {
       }
     }
 
-    //console.log('booked', thisBooking.booked);
     thisBooking.updateDOM();
   }
 
@@ -95,7 +87,6 @@ class Booking {
     const startHour = utils.hourToNumber(hour);
 
     for (let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5) {
-      //console.log('loop', hourBlock);
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
       }
@@ -124,7 +115,7 @@ class Booking {
     
     for (let table of thisBooking.dom.tables) {
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
-      
+      thisBooking.table = tableId;
       if (!isNaN(tableId)) {
         tableId = parseInt(tableId);
       }
@@ -211,26 +202,21 @@ class Booking {
         &&
         !clickedElement.classList.contains(classNames.booking.tableBooked)
         ) {
-        //console.log('kliknięty został wolny stolik');
         const tableId = clickedElement.getAttribute(['data-table']);
         thisBooking.table = parseInt(tableId);
-        //console.log('id stolika', tableId);
         new Table(tableId, thisBooking.date, thisBooking.hour, thisBooking.amountHours.correctValue, thisBooking.amountPeople.correctValue);
       } else if(
           clickedElement.classList.contains('table')
           &&
           clickedElement.classList.contains(classNames.booking.tableBooked)
           ) {
-          //console.log('ten stolik jest juz zajęty');
           clickedElement.innerText = 'RESERVED';
           } else {
-        //console.log('ten jest zarezerwowany lub to zupełnie nie jest stolik');
       }
 
       // [NOT WORKING] remove class 'loading' after secon click
       if (clickedElement.classList.contains(classNames.booking.loading)) {
         clickedElement.addEventListener('click', () => {
-          console.log('drugi raz klikam na zielony stolik');
           clickedElement.classList.remove(classNames.booking.loading);
         });
       }
@@ -238,15 +224,14 @@ class Booking {
 
     thisBooking.dom.submitBtn.addEventListener('click', (event) => {
       event.preventDefault();
-      console.log('rezerwujesz stolik');
       thisBooking.sendBooking();
+      thisBooking.getData();  
     });
 
     thisBooking.starters = [];
     thisBooking.dom.startersBox.addEventListener('change', (event) => {
       const thisBooking = this;
       const checkbox = event.target;
-      console.log('checkbox', checkbox);
       
       if (checkbox.checked) {
         thisBooking.starters.push(checkbox.value);
@@ -254,18 +239,12 @@ class Booking {
         const starterIndex = thisBooking.starters.indexOf(checkbox.value);
         thisBooking.starters.splice(starterIndex, 1);
       }
-      console.log('tablica starterów po kliknieciu', this.starters);
     });
-
   }
-
-  
 
   sendBooking() {
     const thisBooking = this;
-    console.log('send booking method this', this);
     const url = settings.db.url + '/' + settings.db.bookings;
-    console.log('adres do wysłania rezerwacji', url);
     const payload = {};
 
     payload.date =  thisBooking.bookingDate.correctValue;
@@ -273,14 +252,10 @@ class Booking {
     payload.table = thisBooking.table; // liczba
     payload.duration =  thisBooking.amountHours.correctValue; // liczba
     payload.ppl = thisBooking.amountPeople.correctValue; //liczba
-    payload.starters = [];
-    for (let starter of payload.starters) {
-
-    }
+    payload.starters = thisBooking.starters;
     payload.phone = thisBooking.dom.phone.value;
     payload.address = thisBooking.dom.address.value;
     
-    console.log('treść rezerwacji wysyłana na serwer', payload);
     const options = {
       method: 'POST', 
       headers: {
@@ -289,8 +264,7 @@ class Booking {
       body: JSON.stringify(payload)
     };
 
-
-    //fetch(url, options);
+    fetch(url, options);
   }
 
 
