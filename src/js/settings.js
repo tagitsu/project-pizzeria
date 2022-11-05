@@ -82,6 +82,12 @@ export const select = {
     edit: '[href="#edit"]',
     remove: '[href="#remove"]',
   },
+
+  services: {
+    order: '.home__service--order',
+    book: '.home__service--book',
+
+  }
 };
 
 export const classNames = {
@@ -133,6 +139,11 @@ export const settings = {
   booking: {
     tableIdAttribute: 'data-table',
   },
+  restaurant: {
+    openHour: '12PM',
+    closeHour: '12AM',
+    openDays: 'TUE - SUN',
+  }
 };
 
 export const templates = {

@@ -80,6 +80,7 @@ const app = {
         thisApp.initMenu();  
 
       });
+
   },
 
   initCart: function() {
@@ -104,8 +105,6 @@ const app = {
   },
 
   initHome: () => {
-    const thisApp = this;
-
     const homeContainer = document.querySelector(select.containerOf.home);
     new Home(homeContainer);
   },

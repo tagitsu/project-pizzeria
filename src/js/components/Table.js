@@ -1,5 +1,4 @@
 import { classNames, select } from '../settings.js';
-import Booking from "./Booking.js";
 
 class Table {
   constructor(id, date, hour, duration, guests) {

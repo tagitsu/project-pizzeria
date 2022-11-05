@@ -142,7 +142,7 @@ class Booking {
     thisBooking.dom.bookingHour = element.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = element.querySelectorAll(select.booking.tables);
     thisBooking.dom.bookingMap = element.querySelector(select.booking.map);
-    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form)
+    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form);
     thisBooking.dom.submitBtn =  thisBooking.dom.form.querySelector(select.booking.formSubmit);
     thisBooking.dom.address =  thisBooking.dom.form.querySelector(select.booking.address);
     thisBooking.dom.phone =  thisBooking.dom.form.querySelector(select.booking.phone);
@@ -198,18 +198,17 @@ class Booking {
         clickedElement.classList.contains('table')
         &&
         !clickedElement.classList.contains(classNames.booking.tableBooked)
-        ) {
+      ) {
         const tableId = clickedElement.getAttribute(['data-table']);
         thisBooking.table = parseInt(tableId);
         new Table(tableId, thisBooking.date, thisBooking.hour, thisBooking.amountHours.correctValue, thisBooking.amountPeople.correctValue);
       } else if(
-          clickedElement.classList.contains('table')
-          &&
-          clickedElement.classList.contains(classNames.booking.tableBooked)
-          ) {
-          clickedElement.innerText = 'RESERVED';
-          } else {
-      }
+        clickedElement.classList.contains('table')
+        &&
+        clickedElement.classList.contains(classNames.booking.tableBooked)
+      ) {
+        clickedElement.innerText = 'RESERVED';
+      } 
 
       // [NOT WORKING] remove class 'loading' after secon click
       if (clickedElement.classList.contains(classNames.booking.loading)) {

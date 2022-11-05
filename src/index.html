@@ -77,20 +77,35 @@
   </div>
 
   <script id="template-home" type="text/x-handlebars-template">
-    <div class="home"
+    <div class="home">
       <section class="home__services">
-        <div class="home__service"></div>
-        <div class="home__service"></div>
-        <div class="home__service home__service--hours"></div>
+        <ul class="no-spacing">
+          <li class="home__service home__service--order">
+            <a href="#order">order online</a>
+            <span class="no-spacing">Delicious food delivered to your door</span>
+          </li>
+          <li class="home__service home__service--book">
+            <a href="#booking">book a table</a>
+            <span class="no-spacing">Spend a nice time with your friends</span>
+          </li>
+        </ul>
+        <ul class="no-spacing">
+          <li class="home__service home__service--hours">opening hours:
+            <p class="no-spacing">{{ openDays }}, {{ openHour }} - {{ closeHour }}</p>
+          </li>
+        </ul>
+        <div ></div>
       </section>
       <section class="home__slider"></section>
       <section class="home__gallery">
-        <div class="home__photo">{{ image }}</div>
-        <div class="home__photo">{{ image }}</div>
-        <div class="home__photo">{{ image }}</div>
-        <div class="home__photo">{{ image }}</div>
-        <div class="home__photo">{{ image }}</div>
-        <div class="home__photo">{{ image }}</div>
+        <div class="home__gallery-box">
+          <div class="home__photo">{{ image }}</div>
+          <div class="home__photo">{{ image }}</div>
+          <div class="home__photo">{{ image }}</div>
+          <div class="home__photo">{{ image }}</div>
+          <div class="home__photo">{{ image }}</div>
+          <div class="home__photo">{{ image }}</div>
+        </div>
       </section>
       <footer class="home__footer">
         <a href="#">View more on Instagram</a>

@@ -1,0 +1,137 @@
+.home {
+  background-color: $color-light;
+
+  &__services, &__slider, &__gallery, &__footer {
+    margin: ($base-size * 3.5) auto;
+    padding: ($base-size * 6) ($base-size * 4);
+    background: $color-light;
+    border-radius: $radius;
+  }
+
+  &__services ul {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__service {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    min-height: ($base-size * 8);
+    list-style-type: none;
+    margin: ($base-size * 0.2);
+    border-radius: $radius;
+    color: $color-light;
+    font-size: ($base-size * 2.1);
+    text-transform: uppercase;
+    text-align: center;
+    font-family: $font-header;
+
+    &--order {
+      background: url(../../images/assets/pizza-1.jpg);
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &--order a {
+      transition: $transition;
+      color: $color-light;
+      text-decoration: none;
+      transform: translateY($base-size);
+    }
+
+    &--order span {
+      font-size: $base-size;
+      font-family: $font-text;
+      text-transform: none;
+      opacity: 0;
+      transform: translateY(($base-size * 2));
+      transition: $transition;
+    }
+
+    &--order:hover > a {
+      transform: translateY(-($base-size));
+    }
+
+    &--order:hover > span {    
+      transform: translateY(-($base-size));
+      opacity: 1;
+    }
+
+    &--book {
+      background: url(../../images/assets/pizza-2.jpg);
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &--book a {
+      transition: $transition;
+      color: $color-light;
+      text-decoration: none;
+      transform: translateY($base-size);
+    }
+
+    &--book span {
+      font-size: $base-size;
+      font-family: $font-text;
+      text-transform: none;
+      opacity: 0;
+      transform: translateY(($base-size * 2));
+      transition: $transition;
+    }
+
+    &--book:hover > a {
+      transform: translateY(-($base-size));
+    }
+
+    &--book:hover > span {    
+      transform: translateY(-($base-size));
+      opacity: 1;
+    }
+
+    &--hours  {
+      flex: 1;
+      flex-direction: column;
+      min-height: ($base-size * 8);
+      background-color: $color-main;
+    }
+
+    &--hours p {
+      font-size: $base-size;
+      font-family: $font-text;
+    }
+
+  }
+
+  &__slider {
+    background-color: $color-light;
+    height: ($base-size * 20);
+  }
+
+  &__gallery-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: ($base-size * 0.5);
+    justify-items: center;
+    align-items: center;
+  }
+
+  &__photo {
+    background-color: $color-main;
+    height: ($base-size * 12);
+    width: ($base-size * 12);
+    margin: ($base-size);
+    border-radius: $radius;
+  }
+
+  &__footer a {
+    color: $color-main;
+   
+  }
+}
