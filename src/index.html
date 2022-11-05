@@ -7,6 +7,7 @@
   <title>Pizzeria</title>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="./vendor/range-slider.min.css">
   <link rel="stylesheet" href="css/style.css">
@@ -76,6 +77,11 @@
     </section>
   </div>
 
+  <!-- <script id="template-slider" type="text/x-handlebars-template"> -->
+    
+  <!-- </script> -->
+
+
   <script id="template-home" type="text/x-handlebars-template">
     <div class="home">
       <section class="home__services">
@@ -96,7 +102,40 @@
         </ul>
         <div ></div>
       </section>
-      <section class="home__slider"></section>
+      <section class="slider">
+        <div class="main-carousel">
+          <div class="carousel-cell">
+            <div class="slider__photo">
+              <img src="../../images/assets/pizza-3.jpg" alt="people are eating pizza in restaurant">
+            </div>
+            <div class="slider__text">
+              <h1 class="slider__title">Amazing service</h1>
+              <p class="slider__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus eros, accumsan in finibus sed, semper eu orci. Curabitur a massa ut metus venenatis rutrum. Suspendisse interdum pellentesque tempor. Vestibulum molestie convallis lacus. Sed tempus fermentum suscipit.</p>
+              <footer class="slider__author">Amanda</footer>
+            </div>
+          </div>
+          <div class="carousel-cell">
+            <div class="slider__photo">
+              <img src="../../images/assets/pizza-4.jpg" alt="people are eating pizza in restaurant">
+            </div>
+            <div class="slider__text">
+              <h1 class="slider__title">Favorite pizza!</h1>
+              <p class="slider__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus eros, accumsan in finibus sed, semper eu orci. Curabitur a massa ut metus venenatis rutrum. Suspendisse interdum pellentesque tempor. Vestibulum molestie convallis lacus. Sed tempus fermentum suscipit.</p>
+              <footer class="slider__author">Laura</footer>
+            </div>
+          </div>
+          <div class="carousel-cell">
+            <div class="slider__photo">
+              <img src="../../images/assets/pizza-5.jpg" alt="people are eating pizza in restaurant">
+            </div>
+            <div class="slider__text">
+              <h1 class="slider__title">Best place for date</h1>
+              <p class="slider__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus eros, accumsan in finibus sed, semper eu orci. Curabitur a massa ut metus venenatis rutrum. Suspendisse interdum pellentesque tempor. Vestibulum molestie convallis lacus. Sed tempus fermentum suscipit.</p>
+              <footer class="slider__author">Nina</footer>
+            </div>
+          </div>
+        </div>
+      </section>  
       <section class="home__gallery">
         <div class="home__gallery-box">
           <div class="home__photo">{{ image }}</div>
@@ -287,6 +326,7 @@
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="./vendor/range-slider.min.js"></script>
   <script src="js/app.js" type="module"></script>

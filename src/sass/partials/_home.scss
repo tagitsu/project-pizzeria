@@ -1,7 +1,6 @@
 .home {
-  background-color: $color-light;
-
-  &__services, &__slider, &__gallery, &__footer {
+  
+  &__services, .slider, &__gallery, &__footer {
     margin: ($base-size * 3.5) auto;
     padding: ($base-size * 6) ($base-size * 4);
     background: $color-light;
@@ -107,25 +106,67 @@
     }
 
   }
-
-  &__slider {
-    background-color: $color-light;
+  
+  .carousel-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     height: ($base-size * 20);
+    padding: 0;
+  }
+
+  .main-carousel {
+    padding: 0;
+  }
+
+  .slider {
+
+    &__photo {
+      flex: 1;
+    }
+
+    &__photo img {
+      width: ($base-size * 14);
+      height: ($base-size * 14);
+      object-fit: cover;
+      border-radius: $radius;
+
+    }
+
+    &__text {
+      flex: 3;
+      margin-left: $base-size;
+    }
+
+    &__title {
+      font-family: $font-header;
+      text-transform: uppercase;
+    }
+
+    &__author {
+      font-style: italic;
+    }
+  }
+
+  &__gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__gallery-box {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: ($base-size * 0.5);
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
     justify-items: center;
     align-items: center;
   }
 
   &__photo {
     background-color: $color-main;
-    height: ($base-size * 12);
-    width: ($base-size * 12);
+    height: ($base-size * 14);
+    width: ($base-size * 14);
     margin: ($base-size);
     border-radius: $radius;
   }

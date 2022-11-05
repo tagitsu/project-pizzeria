@@ -31,7 +31,6 @@ class Home {
   initAction() {
     const thisHome = this;
 
-    console.log(this.dom.serviceOrder);
   }
 
 }

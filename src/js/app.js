@@ -3,7 +3,7 @@ import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
 import Home from './components/Home.js';
-
+import Slider from './components/Slider.js';
 
 
 const app = {
@@ -68,6 +68,7 @@ const app = {
     thisApp.data = {};
 
     const url = settings.db.url + '/' + settings.db.products;
+    const urlSlider = settings.db.url + '/' + settings.db.slider;
 
     fetch(url) 
       .then(function(rawResponse) {
@@ -80,7 +81,19 @@ const app = {
         thisApp.initMenu();  
 
       });
-
+      /*  
+      fetch(urlSlider) 
+      .then(function(rawResponse) {
+        return rawResponse.json();
+      })
+      .then(function(parsedResponse) {
+        // save parsedResponse as thisApp.data.products
+        thisApp.data.opinions = parsedResponse;  
+        // execute initMenu method
+        thisApp.initHome(thisApp.data.opinions);
+      });  
+      console.log('obiekt data', this.data); // ok
+      */
   },
 
   initCart: function() {
@@ -104,9 +117,13 @@ const app = {
     new Booking(bookingWidget);
   },
 
-  initHome: () => {
+  initHome: function() {
+    const thisApp = this;
+
     const homeContainer = document.querySelector(select.containerOf.home);
     new Home(homeContainer);
+
+    new Slider();
   },
 
   init: function() {
