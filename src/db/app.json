@@ -273,43 +273,48 @@
 
  "opinions": [
    {
-      "photo": {
-         "img": "../src/images/assets/pizza-3.jpg",
-         "alt": "peoples are eating pizza in restaurant"
-      },
-
-      "text": {
-         "title": "Amazing service",
-         "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus eros, accumsan in finibus sed, semper eu orci. Curabitur a massa ut metus venenatis rutrum. Suspendisse interdum pellentesque tempor. Vestibulum molestie convallis lacus. Sed tempus fermentum suscipit. ",
-         "author": "Amanda"
-      }
+      "img": "../../images/assets/pizza-3.jpg",
+      "alt": "peoples are eating pizza in restaurant",
+      "title": "Amazing service",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus eros, accumsan in finibus sed, semper eu orci. Curabitur a massa ut metus venenatis rutrum. Suspendisse interdum pellentesque tempor. Vestibulum molestie convallis lacus. Sed tempus fermentum suscipit. ",
+      "author": "Amanda"
    },
 
    {
-      "photo": {
-         "img": "../src/images/assets/pizza-4.jpg",
-         "alt": "dishes with salad and bread"
-      },
-
-      "text": {
-         "title": "Favorite spot",
-         "content": "Aenean posuere quis tortor vel tincidunt. Nullam rutrum, nulla a aliquam ornare, dui tellus lacinia velit, sed bibendum enim arcu eget nisl. ",
-         "author": "Finn"
-      }
+      "img": "../../images/assets/pizza-4.jpg",
+      "alt": "dishes with salad and bread",
+      "title": "Favorite spot",
+      "content": "Aenean posuere quis tortor vel tincidunt. Nullam rutrum, nulla a aliquam ornare, dui tellus lacinia velit, sed bibendum enim arcu eget nisl. ",
+      "author": "Finn"
    },
 
    {
-      "photo": {
-         "img": "../src/images/assets/pizza-6.jpg",
-         "alt": "pizza"
-      },
-
-      "text": {
-         "title": "Nice place for a date <3",
-         "content": "Suspendisse laoreet imperdiet neque a suscipit. Nulla accumsan, mauris sit amet volutpat eleifend, nibh libero tristique felis, dignissim vulputate nulla lectus ut metus. Sed quis ipsum nulla. Aliquam erat volutpat. Nunc vestibulum lacus non nibh viverra venenatis. ",
-         "author": "Nina"
-      }
+      "img": "../../images/assets/pizza-6.jpg",
+      "alt": "sliced pizza",
+      "title": "Nice place for a date <3",
+      "content": "Suspendisse laoreet imperdiet neque a suscipit. Nulla accumsan, mauris sit amet volutpat eleifend, nibh libero tristique felis, dignissim vulputate nulla lectus ut metus. Sed quis ipsum nulla. Aliquam erat volutpat. Nunc vestibulum lacus non nibh viverra venenatis. ",
+      "author": "Nina"
    }
- ]
- 
+ ],
+
+ "gallery": {
+   "images":
+      [
+         "../../images/assets/pizza-4.jpg",
+         "../../images/assets/pizza-5.jpg",
+         "../../images/assets/pizza-6.jpg",
+         "../../images/assets/pizza-7.jpg",
+         "../../images/assets/pizza-8.jpg",
+         "../../images/assets/pizza-9.jpg"
+      ],
+   "alts":
+      [
+         "pizza-4 dishes with salad and bread",
+         "pizza-5 vegetables on table",
+         "pizza-6 sliced pizza",
+         "pizza-7 open sign",
+         "pizza-8 making of pizza dough",
+         "pizza-9 opened door to resteurant"
+      ]
+   }
 }

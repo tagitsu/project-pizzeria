@@ -1,6 +1,6 @@
 .home {
   
-  &__services, .slider, &__gallery, &__footer {
+  &__services, .slider, &__gallery, .test {
     margin: ($base-size * 3.5) auto;
     padding: ($base-size * 6) ($base-size * 4);
     background: $color-light;
@@ -127,16 +127,15 @@
     }
 
     &__photo img {
-      width: ($base-size * 14);
-      height: ($base-size * 14);
+      width: ($base-size * 15);
+      height: ($base-size * 15);
       object-fit: cover;
       border-radius: $radius;
-
     }
 
     &__text {
       flex: 3;
-      margin-left: $base-size;
+      margin-left: ($base-size * 2);
     }
 
     &__title {
@@ -149,30 +148,48 @@
     }
   }
 
+  .flickity-button {
+    display: none;
+  }
+
   &__gallery {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
+  &__gallery footer {
+    display: block;
+    margin-top: $base-size;
+    width: 100%;
+  }
+
+  &__gallery a {
+    color: $color-main;
+    text-align: left;
+   
+  }
+
   &__gallery-box {
     display: grid;
+    width: 100%;
+    height: ($base-size * 31);
     grid-template-columns: auto auto auto;
     grid-template-rows: auto auto;
-    justify-items: center;
-    align-items: center;
+    justify-content: space-between;
+    align-content: space-between;
+    
   }
 
   &__photo {
     background-color: $color-main;
-    height: ($base-size * 14);
-    width: ($base-size * 14);
-    margin: ($base-size);
+    height: ($base-size * 15);
+    width: ($base-size * 15);
     border-radius: $radius;
   }
 
-  &__footer a {
-    color: $color-main;
-   
-  }
+  
+
+
 }

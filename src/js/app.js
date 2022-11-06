@@ -56,7 +56,6 @@ const app = {
 
   initMenu: function(){
     const thisApp = this;
-    
     for (let productData in thisApp.data.products) {
       new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
     }
@@ -67,10 +66,9 @@ const app = {
 
     thisApp.data = {};
 
-    const url = settings.db.url + '/' + settings.db.products;
-    const urlSlider = settings.db.url + '/' + settings.db.slider;
+    const urlProd = settings.db.url + '/' + settings.db.products;
 
-    fetch(url) 
+    fetch(urlProd) 
       .then(function(rawResponse) {
         return rawResponse.json();
       })
@@ -79,21 +77,20 @@ const app = {
         thisApp.data.products = parsedResponse;  
         // execute initMenu method
         thisApp.initMenu();  
-
       });
-      /*  
-      fetch(urlSlider) 
+
+    const urlSlide = settings.db.url + '/' + settings.db.slider;
+
+    fetch(urlSlide) 
       .then(function(rawResponse) {
         return rawResponse.json();
       })
       .then(function(parsedResponse) {
         // save parsedResponse as thisApp.data.products
         thisApp.data.opinions = parsedResponse;  
-        // execute initMenu method
+        // execute initHome method
         thisApp.initHome(thisApp.data.opinions);
-      });  
-      console.log('obiekt data', this.data); // ok
-      */
+      });
   },
 
   initCart: function() {
@@ -117,20 +114,18 @@ const app = {
     new Booking(bookingWidget);
   },
 
-  initHome: function() {
+  initHome: function(sliderData) {
     const thisApp = this;
-
     const homeContainer = document.querySelector(select.containerOf.home);
     new Home(homeContainer);
-
-    new Slider();
+    const sliderContainer = document.querySelector(select.containerOf.slider);
+    new Slider(sliderContainer, sliderData);
   },
 
   init: function() {
     const thisApp = this;
     thisApp.initPages();
     thisApp.initData();
-    thisApp.initHome();
     thisApp.initCart();
     thisApp.initBooking();
   },

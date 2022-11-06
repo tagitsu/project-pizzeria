@@ -77,9 +77,18 @@
     </section>
   </div>
 
-  <!-- <script id="template-slider" type="text/x-handlebars-template"> -->
-    
-  <!-- </script> -->
+  <script id="template-slide" type="text/x-handlebars-template">
+    <div>
+    <div class="slider__photo">
+      <img src="{{ img }}" alt="{{ alt }}">
+    </div>
+    <div class="slider__text">
+      <h1 class="slider__title">{{ title }}</h1>
+      <p class="slider__content">{{ content }}</p>
+      <footer class="slider__author">- {{ author }}</footer>
+    </div>
+    </div>
+  </script>
 
 
   <script id="template-home" type="text/x-handlebars-template">
@@ -105,34 +114,10 @@
       <section class="slider">
         <div class="main-carousel">
           <div class="carousel-cell">
-            <div class="slider__photo">
-              <img src="../../images/assets/pizza-3.jpg" alt="people are eating pizza in restaurant">
-            </div>
-            <div class="slider__text">
-              <h1 class="slider__title">Amazing service</h1>
-              <p class="slider__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus eros, accumsan in finibus sed, semper eu orci. Curabitur a massa ut metus venenatis rutrum. Suspendisse interdum pellentesque tempor. Vestibulum molestie convallis lacus. Sed tempus fermentum suscipit.</p>
-              <footer class="slider__author">Amanda</footer>
-            </div>
           </div>
           <div class="carousel-cell">
-            <div class="slider__photo">
-              <img src="../../images/assets/pizza-4.jpg" alt="people are eating pizza in restaurant">
-            </div>
-            <div class="slider__text">
-              <h1 class="slider__title">Favorite pizza!</h1>
-              <p class="slider__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus eros, accumsan in finibus sed, semper eu orci. Curabitur a massa ut metus venenatis rutrum. Suspendisse interdum pellentesque tempor. Vestibulum molestie convallis lacus. Sed tempus fermentum suscipit.</p>
-              <footer class="slider__author">Laura</footer>
-            </div>
           </div>
           <div class="carousel-cell">
-            <div class="slider__photo">
-              <img src="../../images/assets/pizza-5.jpg" alt="people are eating pizza in restaurant">
-            </div>
-            <div class="slider__text">
-              <h1 class="slider__title">Best place for date</h1>
-              <p class="slider__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus eros, accumsan in finibus sed, semper eu orci. Curabitur a massa ut metus venenatis rutrum. Suspendisse interdum pellentesque tempor. Vestibulum molestie convallis lacus. Sed tempus fermentum suscipit.</p>
-              <footer class="slider__author">Nina</footer>
-            </div>
           </div>
         </div>
       </section>  
@@ -145,10 +130,10 @@
           <div class="home__photo">{{ image }}</div>
           <div class="home__photo">{{ image }}</div>
         </div>
+        <footer>
+          <a href="#">View more on Instagram</a>
+        </footer>
       </section>
-      <footer class="home__footer">
-        <a href="#">View more on Instagram</a>
-      </footer>
     </div>
   </script>
 

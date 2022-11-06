@@ -4,6 +4,7 @@ export const select = {
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product',
     bookingWidget: '#template-booking-widget',
+    slide: '#template-slide',
   },
 
   containerOf: {
@@ -12,6 +13,7 @@ export const select = {
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
+    slider: '.main-carousel',
   },
 
   all: {
@@ -152,4 +154,5 @@ export const templates = {
   menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
+  slide: Handlebars.compile(document.querySelector(select.templateOf.slide).innerHTML),
 };
