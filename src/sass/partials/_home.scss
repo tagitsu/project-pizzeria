@@ -122,6 +122,10 @@
 
   .slider {
 
+    &__container {
+      display: flex;
+    }
+
     &__photo {
       flex: 1;
     }
