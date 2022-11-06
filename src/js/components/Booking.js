@@ -182,7 +182,7 @@ class Booking {
             table.classList.remove(classNames.booking.loading);
           } else if (table.classList.contains(classNames.booking.tableBooked)) {
             const tableIdAttribute = table.getAttribute(settings.booking.tableIdAttribute);
-            table.innerText = 'table-' + tableIdAttribute;
+            table.innerText = `table-${tableIdAttribute}`;
           }
         }
       }
@@ -196,16 +196,14 @@ class Booking {
 
       if (
         clickedElement.classList.contains('table')
-        &&
-        !clickedElement.classList.contains(classNames.booking.tableBooked)
+        && !clickedElement.classList.contains(classNames.booking.tableBooked)
       ) {
         const tableId = clickedElement.getAttribute(['data-table']);
         thisBooking.table = parseInt(tableId);
         new Table(tableId, thisBooking.date, thisBooking.hour, thisBooking.amountHours.correctValue, thisBooking.amountPeople.correctValue);
-      } else if(
+      } else if (
         clickedElement.classList.contains('table')
-        &&
-        clickedElement.classList.contains(classNames.booking.tableBooked)
+        && clickedElement.classList.contains(classNames.booking.tableBooked)
       ) {
         clickedElement.innerText = 'RESERVED';
       } 
