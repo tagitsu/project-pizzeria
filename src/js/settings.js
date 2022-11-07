@@ -14,6 +14,7 @@ export const select = {
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
+    services: '.home__services ul',
     slider: '.main-carousel',
     photo: '.home__photo',
   },
@@ -90,7 +91,7 @@ export const select = {
   services: {
     order: '.home__service--order',
     book: '.home__service--book',
-
+    links: '.home__services a',
   }
 };
 

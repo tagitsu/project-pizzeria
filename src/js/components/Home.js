@@ -8,7 +8,6 @@ class Home {
     thisHome.renderHome(element);
     thisHome.getData();
     thisHome.getElements(element);
-    thisHome.initAction();
     
   }
 
@@ -17,6 +16,8 @@ class Home {
     thisHome.dom = {};
 
     thisHome.dom.container = element;
+    thisHome.dom.services = element.querySelector(select.containerOf.services);
+    thisHome.dom.serviceLinks = thisHome.dom.services.querySelectorAll('a');
     thisHome.dom.serviceOrder = element.querySelector(select.services.order);
     thisHome.dom.serviceBook = element.querySelector(select.services.book);
     thisHome.dom.photoBoxes = element.querySelectorAll(select.containerOf.photo);
@@ -44,14 +45,9 @@ class Home {
     element.appendChild(thisHome.home);
   }
 
-  initAction() {
-
-  }
-
   renderGallery(data) {
     const thisHome = this;
 
-    // <img src="{{ img }}" alt="{{ alt }}"> thisHome.dom.photoBox
     thisHome.photos = [];
 
     for (let i = 0; i < data.images.length; i++) {
@@ -59,15 +55,11 @@ class Home {
       const photo = utils.createDOMFromHTML(generatedHTML);
       thisHome.photos.push(photo);
     }
-    console.log('tablica ze zdjęciami', this.photos);
-    console.log('photoBoxes', this.dom.photoBoxes);
 
     for (let i = 0; i < thisHome.photos.length; i++) {
       thisHome.dom.photoBoxes[i].appendChild(thisHome.photos[i]);
     }
-    
   }
-
 }
 
 export default Home;

@@ -5,14 +5,22 @@ import Booking from './components/Booking.js';
 import Home from './components/Home.js';
 import Slider from './components/Slider.js';
 
-
-
 const app = {
   initPages: function() {
     const thisApp = this;
+    
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    thisApp.serviceLinks = document.querySelectorAll(select.services.links);
     const idFromHash = window.location.hash.replace('#/', '');
+    
+    let links = [];
+    for (let link of thisApp.navLinks) {
+      links.push(link);
+    }
+    for (let link of thisApp.serviceLinks) {
+      links.push(link);
+    }
 
     let pageMatchingHash = thisApp.pages[0].id; 
     for (let page of thisApp.pages) {
@@ -24,11 +32,10 @@ const app = {
 
     thisApp.activatePage(pageMatchingHash);
 
-    for (let link of thisApp.navLinks) {
+    for (let link of links) {
       link.addEventListener('click', function(event) {
         const clickedElement = this;
         event.preventDefault();
-
         // get id from href attribute
         const id = clickedElement.getAttribute('href').replace('#', '');
         // run activatePage method with that id
@@ -37,7 +44,6 @@ const app = {
         window.location.hash = '#/' + id;
       });
     }
-
   },
 
   activatePage: function(pageId) {
@@ -92,9 +98,6 @@ const app = {
         // execute initHome method
         thisApp.initHome(thisApp.data.opinions);
       });
-
-   
-
   },
 
   initCart: function() {
@@ -119,8 +122,10 @@ const app = {
   },
 
   initHome: function(sliderData, galleryData) {
+    const thisApp = this;
     const homeContainer = document.querySelector(select.containerOf.home);
     new Home(homeContainer, galleryData);
+    thisApp.initPages();
     const sliderContainer = document.querySelector(select.containerOf.slider);
     new Slider(sliderContainer, sliderData);
   },
