@@ -5,6 +5,7 @@ export const select = {
     cartProduct: '#template-cart-product',
     bookingWidget: '#template-booking-widget',
     slide: '#template-slide',
+    photo: '#template-photo',
   },
 
   containerOf: {
@@ -14,6 +15,7 @@ export const select = {
     pages: '#pages',
     booking: '.booking-wrapper',
     slider: '.main-carousel',
+    photo: '.home__photo',
   },
 
   all: {
@@ -127,6 +129,7 @@ export const settings = {
     bookings: 'bookings',
     events: 'events',
     slider: 'opinions',
+    gallery: 'gallery',
     dateStartParamKey: 'date_gte',
     dateEndParamKey: 'date_lte',
     notRepeatParam: 'repeat=false',
@@ -155,4 +158,5 @@ export const templates = {
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
   slide: Handlebars.compile(document.querySelector(select.templateOf.slide).innerHTML),
+  photo: Handlebars.compile(document.querySelector(select.templateOf.photo).innerHTML),
 };

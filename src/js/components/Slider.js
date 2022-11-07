@@ -1,5 +1,7 @@
+// external js: flickity.pkgd.js
 import { templates } from '../settings.js';
 import utils from '../utils.js';
+
 
 class Slider {
   constructor (element, data) {
@@ -21,6 +23,7 @@ class Slider {
     const thisSlider = this;
 
     const elem = document.querySelector('.main-carousel');
+    // eslint-disable-next-line no-undef
     const flkty = new Flickity( elem, {
       cellAlign: 'left',
       autoPlay: 3000,
@@ -39,7 +42,6 @@ class Slider {
       const generatedHTML = templates.slide(opinion);
       thisSlider.slide.push(utils.createDOMFromHTML(generatedHTML));
     }  
-
     for (let i = 0; i < thisSlider.slide.length; i++) {
       slideElements[i].appendChild(thisSlider.slide[i]);
     }

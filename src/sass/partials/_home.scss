@@ -1,10 +1,14 @@
 .home {
-  
-  &__services, .slider, &__gallery, .test {
+  &-wrapper {
     margin: ($base-size * 3.5) auto;
-    padding: ($base-size * 6) ($base-size * 4);
+    padding: ($base-size * 6) ($base-size * 3);
     background: $color-light;
     border-radius: $radius;
+  }
+
+  &__services, &__gallery, .slider  {
+    margin-bottom: ($base-size * 4);
+    padding: ($base-size * 4) 0;
   }
 
   &__services ul {
@@ -121,7 +125,6 @@
   }
 
   .slider {
-
     &__container {
       display: flex;
     }
@@ -191,9 +194,49 @@
     height: ($base-size * 15);
     width: ($base-size * 15);
     border-radius: $radius;
+    position: relative;
+  }
+
+  &__photo img {
+    width: ($base-size * 15);
+    height: ($base-size * 15);
+    object-fit: cover;
+    border-radius: $radius;
   }
 
   
+}
 
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: ($base-size * 15);
+  height: ($base-size * 15);
+  border-radius: $radius;
+  background-color: $color-dark;
+  opacity: 0;
+  transition: $transition;
+}
 
+.overlay:hover {
+  opacity: .8;
+}
+
+.fav:hover, .share:hover {
+  transform: scale(1.2);
+}
+
+.fav:hover {
+  color: $color-main;
+}
+
+.fav, .share {
+  font-size: ($base-size * 2);
+  color: $color-light;
+  margin: $base-size;
 }

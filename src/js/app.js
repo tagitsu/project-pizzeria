@@ -6,6 +6,7 @@ import Home from './components/Home.js';
 import Slider from './components/Slider.js';
 
 
+
 const app = {
   initPages: function() {
     const thisApp = this;
@@ -91,6 +92,9 @@ const app = {
         // execute initHome method
         thisApp.initHome(thisApp.data.opinions);
       });
+
+   
+
   },
 
   initCart: function() {
@@ -114,10 +118,9 @@ const app = {
     new Booking(bookingWidget);
   },
 
-  initHome: function(sliderData) {
-    const thisApp = this;
+  initHome: function(sliderData, galleryData) {
     const homeContainer = document.querySelector(select.containerOf.home);
-    new Home(homeContainer);
+    new Home(homeContainer, galleryData);
     const sliderContainer = document.querySelector(select.containerOf.slider);
     new Slider(sliderContainer, sliderData);
   },
